@@ -5,6 +5,7 @@ import useItemContext from "@/providers/item-provider";
 import { Button, Card, CardContent, CardHeader, Input, Stack, TextField, Typography } from "@mui/material";
 import { isObjectEnumValue } from "@prisma/client/runtime/client";
 import { useMemo, useState } from "react";
+import ItemEditField from "./item-edit-field";
 
 export default function ItemCreation() {
 
@@ -71,19 +72,17 @@ export default function ItemCreation() {
 			<Stack spacing={2}>
 
 
-				<TextField
+				<ItemEditField
 
-					label="item name"
 					value={itemName}
 					onChange={e => handleNameChange(e.target.value)}
-
 				/>
 
 				{itemContext?.selectedItem == undefined &&
 
 					<Stack
 
-						spacing={2}
+						gap={2}
 						direction={"row"}
 						flexWrap={"wrap"}
 						alignItems={"center"}
@@ -110,7 +109,7 @@ export default function ItemCreation() {
 				{itemContext?.selectedItem &&
 
 					<Stack
-						spacing={2}
+						gap={2}
 						direction={"row"}
 						flexWrap={"wrap"}
 						alignItems={"center"}

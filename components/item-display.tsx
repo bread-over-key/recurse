@@ -7,73 +7,11 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { useMemo } from "react";
 import OpenInVSCode from "./open-in-vscode";
 import { parseVSCodeUrl } from "@/lib/vs-code";
+import LabelComponent from "./label-component";
+import ItemComponent from "./item-component";
 
 
-function FileItem({ item }: { item: Item }) {
 
-	const file = useMemo(() => {
-
-		return parseVSCodeUrl(item.title)
-
-	}, [item])
-
-	if (file)
-		return <OpenInVSCode filePath={file.filePath} line={file.line}>{file.fileName}</OpenInVSCode>
-	else
-		return <>error parsing file</>
-}
-
-function LabelComponent({ title }: { title: string }) {
-	return (
-		<Typography variant="h6" color="textDisabled">{title}</Typography>
-	)
-
-}
-
-function ItemComponent({ item }: { item: Item }) {
-
-	const { itemContext } = useItemContext();
-
-	async function handleCollapseToggle(currentItem: Item) {
-		console.log("collapse inner")
-		await updateItemAction(
-
-			currentItem.id,
-			currentItem.parentId,
-			currentItem.title,
-			currentItem.type,
-			!currentItem.collapsed,
-			currentItem.done
-		)
-
-	}
-
-	return (
-		<Stack direction={"row"} justifyContent={"space-between"}>
-			<Button onClick={() => itemContext?.setSelectedItem(item)}>
-				{itemContext?.selectedItem == item && item.type !== "file" &&
-					<Typography color="warning">{item.title}</Typography>}
-				{itemContext?.selectedItem != item && item.done && item.type !== "file" &&
-					<Typography color="success">{item.title}</Typography>}
-				{itemContext?.selectedItem != item && !item.done && item.type !== "file" &&
-
-					<Typography >{item.title}</Typography>}
-				{
-					item.type === "file"
-
-					&&
-
-					<FileItem item={item} />
-
-				}
-			</Button>
-			<Button onClick={() => handleCollapseToggle(item)} sx={{ color: "gray" }}>
-				{item.collapsed && "Show"}
-				{!item.collapsed && "Collapse"}
-			</Button>
-		</Stack>
-	)
-}
 
 export default function ItemDisplay({
 
@@ -114,7 +52,7 @@ export default function ItemDisplay({
 
 		{Object.keys(grouped).map((type, key) => (
 
-			<Box key={key}>
+			<Box key={key} sx={{borderLeftColor: "#2a2a2a", borderLeftWidth: "1pt", borderLeftStyle: "dotted"}}>
 
 				<LabelComponent title={type}></LabelComponent>
 				{/* done */}

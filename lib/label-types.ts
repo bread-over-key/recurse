@@ -7,27 +7,37 @@ interface LabelType {
 
 const taskLabel: LabelType = {
 	name: "task",
-	labels: ["info", "task", "branch", "file", "task group"]
+	labels: ["info (markdown)", "task", "branch task", "file", "task group", "code"]
 }
-
+const taskBranchLabel: LabelType = {
+	name: "branch task",
+	labels: ["task", "task group"]
+}
 
 const taskGroupLabel: LabelType = {
 	name: "task group",
-	labels: ["info", "task", "branch", "file", "task group"]
+	labels: ["task", "task group"]
 }
+
+// research
 
 const researchLabel: LabelType = {
 	name: "research",
-	labels: ["info", "research", "result", "branch", "link", "file", "research group"]
+	labels: ["info (markdown)", "research", "result", "branch research", "link", "file", "research group", "code"]
+}
+
+const researchBranchLabel: LabelType = {
+	name: "branch research",
+	labels: ["research",  "research group"]
 }
 
 const researchGroupLabel: LabelType = {
 	name: "research group",
-	labels: ["info", "research", "result", "branch", "link", "file", "research group"]
+	labels: ["research", "research group"]
 }
 
 export const labelTypes: LabelType[] = [
 
-	taskLabel, researchLabel, taskGroupLabel, researchGroupLabel
-
+	taskLabel, researchLabel, taskGroupLabel, researchGroupLabel,
+	researchBranchLabel, taskBranchLabel
 ]

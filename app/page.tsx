@@ -19,21 +19,30 @@ export default async function Home() {
 			<Box mt={5} />
 			<Typography variant="h3">Task</Typography>
 			<Box mt={5} />
-			<Stack spacing={2} direction={"row"} sx={{ width: "100%" }}>
-				<Stack spacing={2} flexGrow={1}>
+			<Stack 
+				gap={2} 
+				direction={"row"} 
+				sx={{ width: "100%" }}
+				// flexWrap={"wrap"}
+				>
+
+				<Stack spacing={2} flexBasis={"75%"}>
 					<Card>
 						<CardHeader title="Items" />
 						<CardContent>
+							{<p style={{color:"#666666"}}>add research for when you do not know where X goes</p>}
 							<ItemDisplay items={items}></ItemDisplay>
 						</CardContent>
 					</Card>
 				</Stack>
-				<Stack spacing={2}>
+
+				<Stack spacing={2} flexBasis={"20%"}>
 					<ItemSelected></ItemSelected>
 					<ItemCreation></ItemCreation>
 					<PremadeTasks></PremadeTasks>
 					<ArchiveCard />
 				</Stack>
+
 			</Stack>
 		</Container >
 	);

@@ -4,6 +4,7 @@ import { updateItem } from "@/lib/repoes/item-repo";
 import useItemContext from "@/providers/item-provider";
 import { Button, Card, CardContent, CardHeader, Stack, Typography, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import ItemEditField from "./item-edit-field";
 
 export default function ItemSelected() {
 	const { itemContext } = useItemContext();
@@ -84,10 +85,10 @@ export default function ItemSelected() {
 					*/}
 					{editMode &&
 						<Stack>
-							<TextField
+							<ItemEditField
 								value={title ?? ""}
 								onChange={handleNameChange}
-							></TextField>
+							></ItemEditField>
 							<Button variant="outlined" onClick={handleEditDone}>Done</Button>
 						</Stack>
 
