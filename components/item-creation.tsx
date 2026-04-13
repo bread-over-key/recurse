@@ -6,6 +6,7 @@ import { Button, Card, CardContent, CardHeader, Input, Stack, TextField, Typogra
 import { isObjectEnumValue } from "@prisma/client/runtime/client";
 import { useMemo, useState } from "react";
 import ItemEditField from "./item-edit-field";
+import { templateLabels } from "@/lib/template-labelts";
 
 export default function ItemCreation() {
 
@@ -59,8 +60,29 @@ export default function ItemCreation() {
 		setItemName(name)
 
 	}
+	function addTemplateText(text: string) {
+
+		setItemName(text)
+
+	}
 
 	// use effect
+
+	// mini component
+
+	function LabelDisplay(props: { children: React.ReactNode }) {
+		return <Stack
+			gap={2}
+			direction={"row"}
+			flexWrap={"wrap"}
+			alignItems={"center"}
+			alignContent={"left"}
+		>
+
+
+			{props.children}
+		</Stack>
+	}
 
 	// ui
 
@@ -78,17 +100,11 @@ export default function ItemCreation() {
 					onChange={e => handleNameChange(e.target.value)}
 				/>
 
+				<Typography variant="h6" color="textSecondary">Labels</Typography>
+
 				{itemContext?.selectedItem == undefined &&
 
-					<Stack
-
-						gap={2}
-						direction={"row"}
-						flexWrap={"wrap"}
-						alignItems={"center"}
-						alignContent={"left"}
-					>
-
+					<LabelDisplay>
 						<Button
 							onClick={() => handleAddItem("task")}
 							variant="outlined"
@@ -103,19 +119,11 @@ export default function ItemCreation() {
 							research
 						</Button>
 
-					</Stack>
+					</LabelDisplay>
 				}
 
 				{itemContext?.selectedItem &&
-
-					<Stack
-						gap={2}
-						direction={"row"}
-						flexWrap={"wrap"}
-						alignItems={"center"}
-						alignContent={"left"}
-					>
-
+					<LabelDisplay>
 
 						{labels.map((label, key) => (
 
@@ -124,15 +132,24 @@ export default function ItemCreation() {
 								key={key}
 								onClick={() => handleAddItem(label)}
 								variant="outlined"
+								color={label === "task" || label === "research" ? "secondary" : "primary"}
 							>
 								{label}
 							</Button>
 
 						))}
+					</LabelDisplay>
+				}
+					<Stack spacing={2}>
+						<Typography variant="h6" color="textSecondary">Templates</Typography>
+
+						{templateLabels.map((label, index) => (
+
+							<Button key={index} onClick={() => addTemplateText(label)} variant="outlined">{label}</Button>
+
+						))}
 
 					</Stack>
-
-				}
 			</Stack>
 		</CardContent>
 	</Card>

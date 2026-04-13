@@ -11,7 +11,11 @@ const taskLabel: LabelType = {
 }
 const taskBranchLabel: LabelType = {
 	name: "branch task",
-	labels: ["task", "task group"]
+	labels: ["task", "task group", "result"]
+}
+const branchFailedLabel: LabelType = {
+	name: "branch failed",
+	labels: []
 }
 
 const taskGroupLabel: LabelType = {
@@ -28,7 +32,7 @@ const researchLabel: LabelType = {
 
 const researchBranchLabel: LabelType = {
 	name: "branch research",
-	labels: ["research",  "research group"]
+	labels: ["research",  "research group", "result"]
 }
 
 const researchGroupLabel: LabelType = {
@@ -39,5 +43,5 @@ const researchGroupLabel: LabelType = {
 export const labelTypes: LabelType[] = [
 
 	taskLabel, researchLabel, taskGroupLabel, researchGroupLabel,
-	researchBranchLabel, taskBranchLabel
+	researchBranchLabel, taskBranchLabel, branchFailedLabel
 ]

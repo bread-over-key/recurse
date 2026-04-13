@@ -2,9 +2,17 @@
 import { deleteItemAction, updateItemAction } from "@/app/actions/item-actions";
 import { updateItem } from "@/lib/repoes/item-repo";
 import useItemContext from "@/providers/item-provider";
-import { Button, Card, CardContent, CardHeader, Stack, Typography, TextField } from "@mui/material";
+import { Button, Card, CardContent, CardHeader, Stack, Typography, TextField, IconButton, Divider, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import ItemEditField from "./item-edit-field";
+import { templateLabels } from "@/lib/template-labelts";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import UndoIcon from "@mui/icons-material/Undo";
+import SaveIcon from "@mui/icons-material/Save";
+import { Undo } from "@mui/icons-material";
 
 export default function ItemSelected() {
 	const { itemContext } = useItemContext();
@@ -12,6 +20,9 @@ export default function ItemSelected() {
 	const [title, setTitle] = useState(itemContext?.selectedItem?.title);
 
 	const [editMode, setEditMode] = useState(false)
+
+
+	// helper functions
 
 	async function handleNameChange(e: any) {
 		setTitle(e.target.value);
@@ -65,6 +76,9 @@ export default function ItemSelected() {
 		setEditMode(false)
 	}
 
+
+	// use effect
+
 	useEffect(() => {
 
 		if (itemContext?.selectedItem)
@@ -72,44 +86,69 @@ export default function ItemSelected() {
 
 	}, [itemContext?.selectedItem])
 
+	// ui
+
 	if (itemContext?.selectedItem)
 
 
 		return <Card>
-			<CardHeader title={"selected item"} />
 			<CardContent>
+
+				<Stack direction="row" alignItems="center" justifyContent="space-between">
+					<Typography variant="h5">Selected Item</Typography>
+
+					<IconButton
+						onClick={() => itemContext.setSelectedItem(undefined)}
+						aria-label="close"
+					>
+						<CloseIcon />
+					</IconButton>
+				</Stack>
+
 
 				<Stack spacing={2}>
 					{/*
 					<Typography variant="subtitle1">{itemContext.selectedItem.title}</Typography>
 					*/}
+
+					<Divider />
+
 					{editMode &&
-						<Stack>
+						<Stack direction="column" justifyContent={"flex-end"}>
 							<ItemEditField
 								value={title ?? ""}
 								onChange={handleNameChange}
 							></ItemEditField>
-							<Button variant="outlined" onClick={handleEditDone}>Done</Button>
+							<Box>
+								<IconButton sx={{ color: "gray" }} onClick={handleEditDone}><CheckCircleIcon /></IconButton>
+							</Box>
 						</Stack>
 
 					}
 					{!editMode &&
-						<Button variant="text" onClick={() => setEditMode(true)}>{title}</Button>
+						<Stack direction="row" gap={1} alignItems={"center"} justifyContent={"flex-end"}>
+							<Typography variant="subtitle1" color="secondary">{title}</Typography>
+							<Box>
+								<IconButton sx={{ color: "gray" }} onClick={() => setEditMode(true)}>
+									<EditIcon />
+								</IconButton>
+							</Box>
+						</Stack>
 					}
-					<Stack direction={"row"} alignItems={"center"} spacing={2} >
+					<Divider />
+					<Stack direction={"row"} justifyContent={"space-between"}>
+						<Typography>Type</Typography>
+						<Typography>{itemContext?.selectedItem?.type}</Typography>
+					</Stack>
+					<Divider />
+					<Stack direction={"row"} justifyContent={"space-between"} spacing={2} >
 
-						<Button variant="outlined" onClick={handleDelete}>Delete</Button>
-						<Button variant="outlined" onClick={handleDoneToggle}>
-							{!itemContext?.selectedItem.done && "Toggle Done"}
-							{itemContext?.selectedItem.done && "Toggle Undone"}
-						</Button>
+						<IconButton sx={{ color: "gray" }} onClick={handleDoneToggle}>
+							{!itemContext?.selectedItem.done && <CheckCircleIcon />}
+							{itemContext?.selectedItem.done && <UndoIcon />}
+						</IconButton>
+						<IconButton sx={{ color: "gray" }} onClick={handleDelete}><DeleteIcon /></IconButton>
 
-						<Button variant="outlined"
-							onClick={() => itemContext.setSelectedItem(undefined)}
-							sx={{ ml: "auto" }}
-						>
-							Deselect
-						</Button>
 
 					</Stack>
 
@@ -118,4 +157,4 @@ export default function ItemSelected() {
 
 		</Card>
 
-}
+}	

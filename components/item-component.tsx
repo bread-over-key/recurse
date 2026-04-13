@@ -43,6 +43,9 @@ export default function ItemComponent({ item }: { item: Item }) {
 		if (item.type === "link") {
 			return <LinkDisplay href={item.title} />
 		}
+		if (item.type === "branch failed") {
+			return <Typography color="textDisabled">{item.title}</Typography>
+		}
 		if (itemContext?.selectedItem == item && item.type !== "file") {
 			return <Typography color="warning">{item.title}</Typography>
 		}
