@@ -91,7 +91,7 @@ export default function ItemSelected() {
 	if (itemContext?.selectedItem)
 
 
-		return <Card>
+		return <Card sx={{borderColor: "#c99e28", borderWidth: "1pt", borderStyle: "solid"}}>
 			<CardContent>
 
 				<Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -151,6 +151,8 @@ export default function ItemSelected() {
 
 
 					</Stack>
+
+					<Button onClick={() => itemContext.setReparent(!itemContext.reparent)}>Reparent</Button>
 
 				</Stack>
 			</CardContent>

@@ -1,6 +1,7 @@
 import { Item } from "@/types/item";
 import { prisma } from "../prisma";
 import { labelTypes } from "../label-types";
+import { TaskStatus } from "@/types/task-status";
 
 export async function createItem(name: string, type: string) {
 	return await prisma.item.create({
@@ -97,6 +98,59 @@ export async function archiveItems(archiveId: number) {
 
 export async function deleteItem(id: number) {
 	return await prisma.item.delete({ where: { id: id } })
+}
+
+export async function getTaskStatus(): Promise<TaskStatus> {
+
+	let total = await prisma.item.count({
+
+		where: {
+			archiveId: null,
+			type: {
+				in: ["task", "research"]
+			}
+		},
+		orderBy: {
+			id: "asc"
+		}
+	})
+
+
+	let done = await prisma.item.count({
+
+		where: {
+			archiveId: null,
+			done: true,
+			type: {
+				in: ["task", "research"]
+			}
+		},
+		orderBy: {
+			id: "asc"
+		}
+	})
+
+	let undone = await prisma.item.count({
+
+		where: {
+			archiveId: null,
+			done: false,
+			type: {
+				in: ["task", "research"]
+			}
+		},
+		orderBy: {
+			id: "asc"
+		}
+	})
+
+
+	let taskStatus: TaskStatus = {
+		total: total,
+		done: done,
+		undone: undone
+	};
+	return taskStatus
 }
 
 // private

@@ -4,10 +4,13 @@ import { useState } from "react";
 export default function useItem() {
 
 	const [selectedItem, setSelectedItem] = useState<Item>()
+	const [reparent, setReparent] = useState(false)
 
 	return {
 
 		selectedItem,
-		setSelectedItem
+		setSelectedItem,
+		reparent, 
+		setReparent
 	}
 }

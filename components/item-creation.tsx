@@ -111,6 +111,19 @@ export default function ItemCreation() {
 						>
 							task
 						</Button>
+						<Button
+							onClick={() => handleAddItem("theoretical component - task")}
+							variant="outlined"
+						>
+							theoretical component - task
+						</Button>
+						<Button
+							onClick={() => handleAddItem("pyhical component - task")}
+							variant="outlined"
+						>
+							pyhical component - task
+						</Button>
+
 
 						<Button
 							onClick={() => handleAddItem("research")}
@@ -119,6 +132,19 @@ export default function ItemCreation() {
 							research
 						</Button>
 
+						<Button
+							onClick={() => handleAddItem("theoretical component - research")}
+							variant="outlined"
+						>
+							theoretical component - research
+						</Button>
+
+						<Button
+							onClick={() => handleAddItem("physical component - research")}
+							variant="outlined"
+						>
+							physical component - research
+						</Button>
 					</LabelDisplay>
 				}
 
@@ -140,16 +166,16 @@ export default function ItemCreation() {
 						))}
 					</LabelDisplay>
 				}
-					<Stack spacing={2}>
-						<Typography variant="h6" color="textSecondary">Templates</Typography>
+				<Stack spacing={2}>
+					<Typography variant="h6" color="textSecondary">Templates</Typography>
 
-						{templateLabels.map((label, index) => (
+					{templateLabels.map((label, index) => (
 
-							<Button key={index} onClick={() => addTemplateText(label)} variant="outlined">{label}</Button>
+						<Button key={index} onClick={() => addTemplateText(label)} variant="outlined">{label}</Button>
 
-						))}
+					))}
 
-					</Stack>
+				</Stack>
 			</Stack>
 		</CardContent>
 	</Card>

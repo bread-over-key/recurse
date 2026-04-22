@@ -13,6 +13,7 @@ import CodeViewer from "./code-block";
 import Markdown from "./markdown";
 import { LinkDisplay } from "./link-display";
 
+
 export default function ItemComponent({ item }: { item: Item }) {
 
 	const { itemContext } = useItemContext();
@@ -69,12 +70,43 @@ export default function ItemComponent({ item }: { item: Item }) {
 
 	}
 
+	function handleSelectItemClick() {
+		// console.log(itemContext?.reparent)
+
+		if (itemContext?.reparent) {
+
+
+			const selectedItem = itemContext.selectedItem
+
+			if (selectedItem) {
+
+
+
+				updateItemAction(
+					selectedItem.id,
+					item.id,
+					selectedItem.title,
+					selectedItem.type,
+					selectedItem.collapsed,
+					selectedItem.done
+				)
+				itemContext.setReparent(false)
+			}
+		}
+		else {
+			itemContext?.setSelectedItem(item)
+		}
+
+	}
+
 
 	// ui
 
 	return (
 		<Stack direction={"row"} justifyContent={"space-between"}>
-			<div className="px-4 py-2 hover:cursor-pointer rounded hover:bg-[#292929] transition duration-300" onClick={() => itemContext?.setSelectedItem(item)}>
+			<div
+				className="px-4 py-2 hover:cursor-pointer rounded hover:bg-[#292929] transition duration-300"
+				onClick={handleSelectItemClick}>
 				{renderItemName()}
 			</div>
 			<Button onClick={() => handleCollapseToggle(item)} sx={{ color: "gray" }}>

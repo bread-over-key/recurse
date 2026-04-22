@@ -1,3 +1,21 @@
+export const labels = {
+
+	task: "task",
+	info_markdown: "info (markdown)",
+	branch_task: "branch task",
+	file: "file",
+	task_group: "task group",
+	code: "code",
+	pyhical_component_task: "physical component - task",
+
+	research: "research",
+	result: "result",
+	branch_research: "branch research",
+	link: "link",
+	research_group: "research group",
+
+}
+
 interface LabelType {
 
 	name: string
@@ -7,7 +25,7 @@ interface LabelType {
 
 const taskLabel: LabelType = {
 	name: "task",
-	labels: ["info (markdown)", "task", "branch task", "file", "task group", "code"]
+	labels: ["info (markdown)", "task", "branch task", "file", "pyhical component - task", "theoretical component - task", "code"]
 }
 const taskBranchLabel: LabelType = {
 	name: "branch task",
@@ -18,9 +36,13 @@ const branchFailedLabel: LabelType = {
 	labels: []
 }
 
-const taskGroupLabel: LabelType = {
-	name: "task group",
-	labels: ["task", "task group"]
+const physicalComponentTaskLabel: LabelType = {
+	name: "pyhical component - task",
+	labels: ["task", "pyhical component - task", "theoretical component - task"]
+}
+const theoreticalComponentTaskType = {
+	name: "theoretical component - task",
+	labels: ["task", "pyhical component - task", "theoretical component - task"]
 }
 
 // research
@@ -32,16 +54,21 @@ const researchLabel: LabelType = {
 
 const researchBranchLabel: LabelType = {
 	name: "branch research",
-	labels: ["research",  "research group", "result"]
+	labels: ["research", "research group", "result"]
 }
 
-const researchGroupLabel: LabelType = {
-	name: "research group",
-	labels: ["research", "research group"]
+const theoreticalComponentResearchLabel: LabelType = {
+	name: "theoretical component - research",
+	labels: ["research", "theoretical component - research", "physical component - research"]
+}
+
+const physicalComponentResearchLabel: LabelType = {
+	name: "physical component - research",
+	labels: ["research", "theoretical component - research", "physical component - research"]
 }
 
 export const labelTypes: LabelType[] = [
 
-	taskLabel, researchLabel, taskGroupLabel, researchGroupLabel,
-	researchBranchLabel, taskBranchLabel, branchFailedLabel
+	taskLabel, researchLabel, physicalComponentTaskLabel, theoreticalComponentTaskType, theoreticalComponentResearchLabel,
+	researchBranchLabel, taskBranchLabel, branchFailedLabel, physicalComponentResearchLabel
 ]

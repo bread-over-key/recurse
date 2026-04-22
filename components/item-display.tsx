@@ -18,7 +18,7 @@ export default function ItemDisplay({
 	items
 
 }: { items: Item[] }) {
-
+	const { itemContext } = useItemContext()
 	// done and undone
 	const grouped: Record<string, [Item[], Item[]]> = useMemo(
 
@@ -48,28 +48,36 @@ export default function ItemDisplay({
 
 		, [items])
 
+
 	return <>
+		{itemContext?.reparent && <Typography variant="caption" color="warning">REPARENT</Typography>}
 
 		{Object.keys(grouped).map((type, key) => (
 
-			<Box key={key} sx={{borderLeftColor: "#2a2a2a", borderLeftWidth: "1pt", borderLeftStyle: "dotted"}}>
+			<Box key={key} sx={{ borderLeftColor: "#2a2a2a", borderLeftWidth: "1pt", borderLeftStyle: "dotted" }}>
 
 				<LabelComponent title={type}></LabelComponent>
 				{/* done */}
 				{grouped[type][0].map(item => (
 					<Box key={item.id}>
 
-						<ItemComponent item={item}></ItemComponent>
-						{!item.collapsed && item.children &&
-							<Box ml={5}>
+						{
+							(!itemContext?.reparent || item.id != itemContext?.selectedItem?.id)
+							&&
+							<>
+								<ItemComponent item={item}></ItemComponent>
+								{!item.collapsed && item.children &&
+									<Box ml={5}>
 
-								<ItemDisplay items={item.children} />
-							</Box>
-						}
-						{item.collapsed && item.children &&
-							<Box ml={5}>
-								...
-							</Box>
+										<ItemDisplay items={item.children} />
+									</Box>
+								}
+								{item.collapsed && item.children &&
+									<Box ml={5}>
+										...
+									</Box>
+								}
+							</>
 						}
 					</Box>
 				)
@@ -78,17 +86,23 @@ export default function ItemDisplay({
 				{grouped[type][1].map(item => (
 					<Box key={item.id}>
 
-						<ItemComponent item={item}></ItemComponent>
-						{!item.collapsed && item.children &&
-							<Box ml={5}>
+						{
+							(!itemContext?.reparent || item.id != itemContext?.selectedItem?.id)
+							&&
+							<>
+								<ItemComponent item={item}></ItemComponent>
+								{!item.collapsed && item.children &&
+									<Box ml={5}>
 
-								<ItemDisplay items={item.children} />
-							</Box>
-						}
-						{item.collapsed && item.children &&
-							<Box ml={5}>
-								...
-							</Box>
+										<ItemDisplay items={item.children} />
+									</Box>
+								}
+								{item.collapsed && item.children &&
+									<Box ml={5}>
+										...
+									</Box>
+								}
+							</>
 						}
 					</Box>
 				)

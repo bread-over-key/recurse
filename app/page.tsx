@@ -10,10 +10,14 @@ import ItemSelected from "@/components/item-selected";
 import ArchiveCard from "@/components/archive-card";
 import MiniGameCard from "@/components/minigame-card";
 import TypeSpecificCard from "@/components/type-specific-card";
+import CompletionStatusCard from "@/components/completion-status-card";
+import { TaskStatus } from "@/types/task-status";
+import { getTaskStatusAction } from "./actions/task-status-actions";
 
 export default async function Home() {
 
 	const items: Item[] = await getItemsAction();
+	const taskStatus: TaskStatus = await getTaskStatusAction();
 
 	return (
 		<Container>
@@ -28,6 +32,7 @@ export default async function Home() {
 			>
 
 				<Stack spacing={2} flexBasis={"75%"}>
+					<CompletionStatusCard taskStatus={taskStatus} />
 					<Card>
 						<CardHeader title="Items" />
 						<CardContent>
